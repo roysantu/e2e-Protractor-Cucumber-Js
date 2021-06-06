@@ -1,0 +1,23 @@
+{
+  "name": "e2e-protractor-cucumber-type",
+  "version": "1.0.0",
+  "description": "Boilerplate for end to end testing using protractor, cucumber and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e": "./node_modules/.bin/cucumber-js --format=json:./report/cucumber_report.json && node index.js",
+    "loginTest": "./node_modules/.bin/cucumber-js ./features/login.feature",
+    "mmTest": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature -f json:report/cucumber_report.json",
+    "mmSmoke": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@smoke'",
+    "mmDebug": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@wip'"
+  },
+  "author": "Santu Roy",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^7.2.1",
+    "cucumber-html-reporter": "^5.4.0"
+  },
+  "devDependencies": {
+    "protractor-cucumber-framework": "^8.1.0"
+  }
+}
