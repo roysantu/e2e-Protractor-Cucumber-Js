@@ -9,7 +9,8 @@
     "loginTest": "./node_modules/.bin/cucumber-js ./features/login.feature",
     "mmTest": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature -f json:report/cucumber_report.json",
     "mmSmoke": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@smoke'",
-    "mmDebug": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@wip'"
+    "mmDebug": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@wip'",
+    "mmProtractor": "protractor protractor-conf.js && node index.js"
   },
   "author": "Santu Roy",
   "license": "ISC",
@@ -18,6 +19,8 @@
     "cucumber-html-reporter": "^5.4.0"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "protractor": "^7.0.0",
     "protractor-cucumber-framework": "^8.1.0"
   }
 }
