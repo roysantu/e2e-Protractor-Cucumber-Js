@@ -1,9 +1,12 @@
+var propertiesReader = require('properties-reader');
+var prop = propertiesReader('./features/properties/prop.properties');
+
 exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  seleniumAddress: prop.get("seleniumAddress"),
   // directConnect: true,
 
-  getPageTimeout: 60000,
-  allScriptTimeout: 50000,
+  getPageTimeout: prop.get("pageTimeout"),
+  allScriptTimeout: prop.get("allScriptTimeout"),
 
   // set to "custom" instead of cucumber.
   framework: "custom",
@@ -11,9 +14,9 @@ exports.config = {
   // path relative to the current config file
   frameworkPath: require.resolve("protractor-cucumber-framework"),
 
-  capabilities: {
-    "browserName": "chrome"
-  },
+  // capabilities: {
+  //   "browserName": "chrome"
+  // },
 
   // multiCapabilities: [{
   //   "browserName": "chrome"
@@ -24,17 +27,42 @@ exports.config = {
 
   // maxSession: 2,
 
+  multiCapabilities: [
+    {
+      browserName: "chrome",
+      shardTestFiles: true,
+      maxInstances: 2,
+      chromeOptions: {
+        args: ["disable-infobars"],
+      },
+    },
+  ],
+
+  plugins: [
+    {
+      package: require.resolve(
+        "protractor-multiple-cucumber-html-reporter-plugin"
+      ),
+      options: {
+        // read the options part
+        automaticallyGenerateReport: true,
+        removeExistingJsonReportFile: true,
+      },
+    },
+  ],
+
   // require feature files
   specs: [
-    "features/MMExercise-1.feature", // accepts a glob
+    prop.get("featurePath"), // accepts a glob
   ],
 
   cucumberOpts: {
     // require step definitions
     // tags: false,
-    format: 'json:report/cukereport.json',
+    // format: 'json:report/cukereport.json',
+    format: "json:.tmp/results.json",
     require: [
-      'features/stepDefinitions/*.steps.js' // accepts a glob
-    ]
-  }
+      prop.get("stepDefPath"), // accepts a glob
+    ],
+  },
 };

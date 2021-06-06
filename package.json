@@ -10,7 +10,8 @@
     "mmTest": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature -f json:report/cucumber_report.json",
     "mmSmoke": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@smoke'",
     "mmDebug": "./node_modules/.bin/cucumber-js ./features/MassMutual*.feature --tags '@wip'",
-    "mmProtractor": "protractor protractor-conf.js && node index.js"
+    "mmProtractor": "protractor protractor-conf.js && node index.js",
+    "mmProtractor1": "protractor protractor-conf.js"
   },
   "author": "Santu Roy",
   "license": "ISC",
@@ -20,7 +21,10 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "properties-reader": "^2.2.0",
     "protractor": "^7.0.0",
-    "protractor-cucumber-framework": "^8.1.0"
+    "protractor-cucumber-framework": "^8.1.0",
+    "protractor-multiple-cucumber-html-reporter-plugin": "^1.8.1"
   }
 }
