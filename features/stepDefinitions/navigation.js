@@ -1,11 +1,13 @@
 var { Given, When, Then } = require("@cucumber/cucumber");
-// var {browser} = require('protractor-cucumber-framework')
+var propertiesReader = require('properties-reader');
+var prop = propertiesReader('./features/properties/prop.properties');
 
-Given(/^user navigates to "([^"]*)" page$/, async function (pageName) {
-    var appURL = pageName; // TODO update page url from different config file
-    browser.ignoreSynchronization = true
+Given(/^user navigates to "(.*)" page$/, {timeout: 2 * 5000}, async function (pageName) {
+    var appURL = prop.get(pageName); // TODO update page url from different config file
+    browser.ignoreSynchronization = true;
     console.log("User launches app: " + pageName);
-    browser.get(pageName);
-    // await browser.waitForAngularEnabled(false);
+    browser.get(pageName).then(function(){
+      browser.sleep(5000);
+    });
     
   });

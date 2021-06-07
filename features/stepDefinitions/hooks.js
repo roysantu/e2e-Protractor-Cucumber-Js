@@ -10,15 +10,15 @@ const { browser } = require("protractor");
 
 
 BeforeAll(function () {
-    console.log("Initial test suite setup");
+    // console.log("Initial test suite setup");
 });
 
 Before(function () {
-    console.log("Inside Before");
+    // console.log("Inside Before");
 });
 
 BeforeStep(function () {
-    console.log("Inside Before Step");
+    // console.log("Inside Before Step");
 });
 
 After(function () {
@@ -44,5 +44,5 @@ AfterStep(function () {
 });
 
 AfterAll(function () {
-    console.log("Shutting down");
+    // console.log("Shutting down");
 });

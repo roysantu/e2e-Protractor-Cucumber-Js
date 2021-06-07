@@ -1,4 +1,4 @@
-Feature: Greek cart home page
+Feature: Green cart
     As a user
     I want to verify exercise-1 page
 
@@ -9,7 +9,18 @@ Feature: Greek cart home page
 
     @posivite @functionalTest @chrome @smoke
     Scenario: Verify count of products on Green cart Home page
-        Then user verifies total count of value fields as 5
+        Then user verifies total count of products as 30
+
+    @posivite @functionalTest @chrome
+    Scenario Outline: Verify user able to add products to cart
+        Then user adds product number <Product_Instance> to cart
+        # TODO save value to world param
+        Then user verifies price "<Product_Cost>" cart preview
+        And user verifies amount currency as "<Currency>"
+
+        Examples:
+            | Product_Instance | Product_Cost | Currency |
+            | 4                | 57           | $        |
 
 #     @posivite @functionalTest @chrome
 #     Scenario Outline: Verify values are greater than 0 on Exercise-1 page (Selective verification for value field using example table)
