@@ -7,28 +7,28 @@ Feature: Green cart
         Given user navigates to "https://rahulshettyacademy.com/seleniumPractise/#/" page
         When user validate the Green Cart page title "GreenKart - veg and fruits kart"
 
-    @posivite @functionalTest @chrome @smoke
-    Scenario: Verify count of products on Green cart Home page
-        Then user verifies total count of products as 30
+    # @posivite @functionalTest @chrome @smoke
+    # Scenario: Verify count of products on Green cart Home page
+    #     Then user verifies total count of products as 30
+
+    # @posivite @functionalTest @chrome
+    # Scenario Outline: Verify user able to add products to cart
+    #     Then user adds product number <Product_Instance> to cart
+    #     # TODO save value to world param
+    #     Then user verifies price "<Product_Cost>" cart preview
+    #     And user verifies amount currency as "<Currency>"
+
+    #     Examples:
+    #         | Product_Instance | Product_Cost | Currency |
+    #         | 4                | 56           | ₹        |
 
     @posivite @functionalTest @chrome
-    Scenario Outline: Verify user able to add products to cart
-        Then user adds product number <Product_Instance> to cart
-        # TODO save value to world param
-        Then user verifies price "<Product_Cost>" cart preview
-        And user verifies amount currency as "<Currency>"
+    Scenario Outline: Verify product price are greater than 0 (Selective verification for value field using example table)
+        Then user verifies the value of "<Product_Instance>" is greater than <Greater_Than>
 
         Examples:
-            | Product_Instance | Product_Cost | Currency |
-            | 4                | 57           | $        |
-
-#     @posivite @functionalTest @chrome
-#     Scenario Outline: Verify values are greater than 0 on Exercise-1 page (Selective verification for value field using example table)
-#         Then user verifies the value of "<Field_Name>" is greater than <Value_Greater_Than>
-
-#         Examples:
-#             | Field_Name | Value_Greater_Than |
-#             | Value 1    | 0                  |
+            | Product_Instance | Greater_Than |
+            | 1                | 0            |
 #     # | Value 2          | 0                     |
 #     # | Value 3          | 0                     |
 #     # | Value 4          | 0                     |

@@ -1,6 +1,9 @@
 var { Given, When, Then, After } = require("@cucumber/cucumber");
+var basePage = require('../pages/BasePage.js');
+
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
+const { browser } = require("protractor");
 
 chai.use(chaiAsPromised)
 var expect = chai.expect;
@@ -15,9 +18,10 @@ var expect = chai.expect;
 //   }
 // });
 
-When(/^user validate the (.*) page title "([^"]*)"$/, async function (pageName, pageTitle) {
+When(/^user validate the (.*) page title "([^"]*)"$/, {timeout: 2 * 10000}, function (pageName, pageTitle) {
   console.log("User verifies the page title : " + pageTitle + " in " + pageName + " page");
-  return expect(browser.getTitle()).to.eventually.equal(pageTitle);
+  browser.sleep(2000);
+  return expect(basePage.getTitle()).to.eventually.equal(pageTitle);
   
 });
 
