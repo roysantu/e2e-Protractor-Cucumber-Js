@@ -7,17 +7,17 @@ Then(
     }
 );
 
-Then(
-    "user verifies the value of {string} is greater than {int}",
-    function (fieldName, greaterThanValue) {
-        console.log(
-            "Value for field " +
-            fieldName +
-            " should be more than " +
-            greaterThanValue
-        );
-    }
-);
+// Then(
+//     "user verifies the value of {string} is greater than {int}",
+//     function (fieldName, greaterThanValue) {
+//         console.log(
+//             "Value for field " +
+//             fieldName +
+//             " should be more than " +
+//             greaterThanValue
+//         );
+//     }
+// );
 
 Then(
     "user verifies the value fields are greater than {int}",

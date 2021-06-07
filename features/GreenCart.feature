@@ -22,26 +22,26 @@ Feature: Green cart
     #         | Product_Instance | Product_Cost | Currency |
     #         | 4                | 56           | ₹        |
 
-    @posivite @functionalTest @chrome
-    Scenario Outline: Verify product price are greater than 0 (Selective verification for value field using example table)
-        Then user verifies the value of "<Product_Instance>" is greater than <Greater_Than>
+    # @posivite @functionalTest @chrome
+    # Scenario Outline: Verify product price are greater than 0 (Selective verification for value field using example table)
+    #     Then user verifies the value of product <Product_Instance> is greater than <Greater_Than>
 
-        Examples:
-            | Product_Instance | Greater_Than |
-            | 1                | 0            |
-#     # | Value 2          | 0                     |
-#     # | Value 3          | 0                     |
-#     # | Value 4          | 0                     |
-#     # | Value 5          | 0                     |
+    #     Examples:
+    #         | Product_Instance | Greater_Than |
+    #         | 1                | 0.0          |
+    # # | Value 2          | 0                     |
+    # # | Value 3          | 0                     |
+    # # | Value 4          | 0                     |
+    # # | Value 5          | 0                     |
 
-#     @posivite @functionalTest @chrome
-#     Scenario: Verify value fields are greater than 0 on Exercise I page
-#         Then user verifies the value fields are greater than 0
+    # @posivite @functionalTest @chrome
+    # Scenario: Verify all products prices are greater than 0 
+    #     Then user verifies all products prices are greater than 0
 
-#     @posivite @functionalTest @chrome @smoke
-#     Scenario: Verify Total Balance on Exercise-1 page
-#         Then user sum up total amount in value fields
-#         Then user verifies Total Balance
+    @posivite @functionalTest @chrome @smoke
+    Scenario: Verify Total Balance on Exercise-1 page
+        Then user sum up total amount of all the products
+        # Then user verifies Total Balance
 
 #     @posivite @UATTest @chrome
 #     Scenario Outline: Verify value fields are formatted as currency
