@@ -11,6 +11,10 @@ const { $, element, browser } = require("protractor");
 chai.use(chaiAsPromised);
 var expect = chai.expect;
 
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = 'info';
+
 var greenCartHomePageElem = greenCartHomePage.elementsHomePage;
 
 Then("user verifies total count of products as {int}", { timeout: 2 * 5000 }, function (expectedCount) {
@@ -23,6 +27,7 @@ Then("user adds product number {int} to cart", { timeout: 2 * 5000 }, async func
     let selectedProduct = greenCartHomePageElem.allProducts.get(productInstance);
     selectedProduct.$("button").click().then(async function () {
         await browser.driver.sleep(5000);
+        logger.info("User adding product");
     });
     // TODO end with validation
 });
@@ -30,10 +35,11 @@ Then("user adds product number {int} to cart", { timeout: 2 * 5000 }, async func
 Then(/^user verifies price "([^"]*)" cart preview$/, { timeout: 2 * 5000 }, async function (expectedPrice) {
     greenCartHomePageElem.cartPreviewIcon.click().then(async function () {
         await browser.driver.sleep(3000);
+        logger.info("User opened cart preview");
     });
 
     return element(by.css(or.get("cartFirstItemAmount_CSS"))).getText().then(function (elemText) {
-        console.log(elemText);
+        logger.info("First item price in cart preview" + elemText);
         return expect(elemText).to.equal(expectedPrice);
     });
 });

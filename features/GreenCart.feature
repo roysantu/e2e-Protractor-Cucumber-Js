@@ -6,7 +6,7 @@ Feature: Green cart
         Given user navigates to "greenCartURL" page
         When user validate the Green Cart page title "GreenKart - veg and fruits kart"
 
-    @posivite @functionalTest @chrome @smoke
+    @posivite @functionalTest @chrome @smoke @wip
     Scenario: Verify count of products on Green cart Home page
         Then user verifies total count of products as 30
 
