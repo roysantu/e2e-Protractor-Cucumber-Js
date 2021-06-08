@@ -20,8 +20,8 @@ var expect = chai.expect;
 
 When(/^user validate the (.*) page title "([^"]*)"$/, {timeout: 2 * 10000}, function (pageName, pageTitle) {
   console.log("User verifies the page title : " + pageTitle + " in " + pageName + " page");
-  browser.sleep(2000);
-  return expect(basePage.getTitle()).to.eventually.equal(pageTitle);
+  
+  return expect(basePage.getTitle()).to.eventually.equal(pageTitle, "Page title validated-Passed");
   
 });
 

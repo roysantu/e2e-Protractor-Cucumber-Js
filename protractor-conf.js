@@ -58,9 +58,9 @@ exports.config = {
 
   cucumberOpts: {
     // require step definitions
-    // tags: false,
+    // tags: "@wip",
     // format: 'json:report/cukereport.json',
-    format: "json:.tmp/results.json",
+    format: "json:tmp/results.json",
     require: [
       prop.get("stepDefPath"), // accepts a glob
     ],

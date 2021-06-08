@@ -6,7 +6,7 @@ var greenCartHomePage = require('../pages/GreenCartHomePage.js');
 
 const chai = require("chai");
 const chaiAsPromised = require("chai-as-promised");
-const { $, element } = require("protractor");
+const { $, element, browser } = require("protractor");
 
 chai.use(chaiAsPromised);
 var expect = chai.expect;
@@ -19,18 +19,18 @@ Then("user verifies total count of products as {int}", { timeout: 2 * 5000 }, fu
 }
 );
 
-Then("user adds product number {int} to cart", { timeout: 2 * 5000 }, function (productInstance) {
+Then("user adds product number {int} to cart", { timeout: 2 * 5000 }, async function (productInstance) {
     let selectedProduct = greenCartHomePageElem.allProducts.get(productInstance);
-    selectedProduct.$("button").click().then(function () {
-        browser.sleep(10000);
+    selectedProduct.$("button").click().then(async function () {
+        await browser.driver.sleep(5000);
     });
     // TODO end with validation
 });
 
 Then(/^user verifies price "([^"]*)" cart preview$/, { timeout: 2 * 5000 }, async function (expectedPrice) {
-    element(by.css(or.get("cartPreview_CSS"))).click().then(function () {
-        browser.sleep(3000);
-    });;
+    greenCartHomePageElem.cartPreviewIcon.click().then(async function () {
+        await browser.driver.sleep(3000);
+    });
 
     return element(by.css(or.get("cartFirstItemAmount_CSS"))).getText().then(function (elemText) {
         console.log(elemText);
@@ -39,53 +39,44 @@ Then(/^user verifies price "([^"]*)" cart preview$/, { timeout: 2 * 5000 }, asyn
 });
 
 Then(/^user verifies amount currency as "([^"]*)"$/, { timeout: 2 * 10000 }, async function (expectedCurrency) {
-    // expect(basePage.getTitle).to.eventually.include
-    return expect(browser.executeScript('return window.getComputedStyle(document.querySelector(".cart-preview .amount"), "::before").content;')).to.eventually.include(expectedCurrency);
+    let locatorCss = '.cart-preview .amount';
+    let pseudoElemName = '::before';
+    let pesudoElemPropertyName = 'content';
+
+    return expect(greenCartHomePage.getPseudoElemAttribute(locatorCss, pseudoElemName, pesudoElemPropertyName)).to.eventually.include(expectedCurrency);
 });
 
 Then("user verifies all products prices are greater than {float}", async function (greaterThanValue) {
     console.log("All the Value fields should be more than " + greaterThanValue);
 
-    var elemCount = 0;
-    let allProductsCount = await greenCartHomePage.getProductCount().then(async function (count) {
-        elemCount = parseInt(count);
-        return elemCount;
-    });
+    let allProductsCount = await greenCartHomePage.getProductCountAsNumber();
 
     for (i = 0; i < allProductsCount; i++) {
-        await greenCartHomePageElem.allProducts.get(i).$(".product-price").getText().then(async function (elemText) {
-            expect(parseFloat(elemText)).to.greaterThan(greaterThanValue);
-            console.log(elemText);
-        })
+        let selectedProduct = greenCartHomePageElem.allProducts.get(i);
+        // await greenCartHomePageElem.allProducts.get(i).$(".product-price").getText().then(async function (elemText) {
+        //     expect(parseFloat(elemText)).to.greaterThan(greaterThanValue);
+        //     console.log(elemText);
+        // })
+        expect(await greenCartHomePage.getProductPrice(selectedProduct)).to.greaterThan(greaterThanValue);
     }
-
-
 });
 
-Then("user verifies the value of product {int} is greater than {float}", { timeout: 2 * 10000 }, function (productInstance, greaterThanValue) {
+Then("user verifies the value of product {int} is greater than {float}", { timeout: 2 * 10000 }, async function (productInstance, greaterThanValue) {
     console.log("Value for field " + productInstance + " should be more than " + greaterThanValue);
     let selectedProduct = greenCartHomePageElem.allProducts.get(productInstance);
-    selectedProduct.$(".product-price").getText().then(function (elemText) {
-        expect(parseFloat(elemText)).to.greaterThan(greaterThanValue);
-    })
-}
-);
+    return await greenCartHomePage.checkValueIsGreater(selectedProduct, greaterThanValue);
+    // expect(await greenCartHomePage.checkValueIsGreater(selectedProduct)).to.greaterThan(greaterThanValue);
+});
 
-Then("user sum up total amount of all the products", async function () {
+Then("user verifies total amount of all the products", async function () {
     var sumNum = 0;
-    var elemCount = 0;
 
-    let allProductsCount = await greenCartHomePage.getProductCount().then(async function (count) {
-        elemCount = parseInt(count);
-        return elemCount;
-    });
+    let allProductsCount = await greenCartHomePage.getProductCountAsNumber();
 
-    console.log(allProductsCount);
+    console.log("This will sum all the " + allProductsCount + " products prices");
     for (i = 0; i < allProductsCount; i++) {
-        await greenCartHomePageElem.allProducts.get(i).$(".product-price").getText().then(async function (elemText) {
-            sumNum = sumNum + parseFloat(elemText);
-            console.log(sumNum);
-        })
+        let selectedProduct = greenCartHomePageElem.allProducts.get(i);
+        sumNum = sumNum + parseFloat(await greenCartHomePage.getProductPrice(selectedProduct));
     }
     console.log("sumNum:   *****" + sumNum);
 

@@ -7,11 +7,11 @@ Feature: Green cart
         Given user navigates to "https://rahulshettyacademy.com/seleniumPractise/#/" page
         When user validate the Green Cart page title "GreenKart - veg and fruits kart"
 
-    @posivite @functionalTest @chrome @smoke
+    @posivite @functionalTest @chrome @smoke 
     Scenario: Verify count of products on Green cart Home page
         Then user verifies total count of products as 30
 
-    @posivite @functionalTest @chrome
+    @posivite @functionalTest @chrome 
     Scenario Outline: Verify user able to add products to cart
         Then user adds product number <Product_Instance> to cart
         # TODO save value to world param
@@ -22,7 +22,7 @@ Feature: Green cart
             | Product_Instance | Product_Cost | Currency |
             | 4                | 56           | ₹        |
 
-    @posivite @functionalTest @chrome
+    @posivite @functionalTest @chrome 
     Scenario Outline: Verify product price are greater than 0 (Selective verification for value field using example table)
         Then user verifies the value of product <Product_Instance> is greater than <Greater_Than>
 
@@ -34,14 +34,13 @@ Feature: Green cart
     # | Value 4          | 0                     |
     # | Value 5          | 0                     |
 
-    @posivite @functionalTest @chrome
+    @posivite @functionalTest @chrome 
     Scenario: Verify all products prices are greater than 0 
         Then user verifies all products prices are greater than 0
 
-    @posivite @functionalTest @chrome @smoke
-    Scenario: Verify Total Balance on Exercise-1 page
-        Then user sum up total amount of all the products
-        # Then user verifies Total Balance // TODO with world param
+    @posivite @functionalTest @chrome @smoke 
+    Scenario: Verify total price of all the products
+        Then user verifies total amount of all the products
 
 #     @posivite @UATTest @chrome
 #     Scenario Outline: Verify value fields are formatted as currency
