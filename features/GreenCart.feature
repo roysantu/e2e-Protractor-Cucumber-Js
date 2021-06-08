@@ -3,11 +3,10 @@ Feature: Green cart
     I want to verify exercise-1 page
 
     Background:
-        # Given user navigates to Exercise I // TODO add url from global variable/config/url page title class
-        Given user navigates to "https://rahulshettyacademy.com/seleniumPractise/#/" page
+        Given user navigates to "greenCartURL" page
         When user validate the Green Cart page title "GreenKart - veg and fruits kart"
 
-    @posivite @functionalTest @chrome @smoke 
+    @posivite @functionalTest @chrome @smoke
     Scenario: Verify count of products on Green cart Home page
         Then user verifies total count of products as 30
 
