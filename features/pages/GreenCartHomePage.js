@@ -12,12 +12,12 @@ module.exports = {
     },
 
     getProductCount: function () {
-        var thisElem = this.elementsHomePage;
+        let thisElem = this.elementsHomePage;
         return thisElem.allProducts.count();
     },
 
     getProductCountAsNumber: async function () {
-        var allProducts = this.elementsHomePage.allProducts;
+        let allProducts = this.elementsHomePage.allProducts;
         return await allProducts.count().then(async function (count) {
             elemCount = parseInt(count);
             return elemCount;
@@ -41,6 +41,17 @@ module.exports = {
             elemValue = parseFloat(text);
             return elemValue;
         });
+    },
+
+    sumProductPrices: async function (elems) {
+        let count = await this.getProductCountAsNumber();
+        let sumNum = 0;
+
+        for (i = 0; i < count; i++) {
+            let selectedProduct = elems.get(i);
+            sumNum = sumNum + await this.getProductPrice(selectedProduct);
+        }
+        return sumNum;
     },
 
     OpenCartPreview: function () {

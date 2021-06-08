@@ -53,10 +53,7 @@ Then("user verifies all products prices are greater than {float}", async functio
 
     for (i = 0; i < allProductsCount; i++) {
         let selectedProduct = greenCartHomePageElem.allProducts.get(i);
-        // await greenCartHomePageElem.allProducts.get(i).$(".product-price").getText().then(async function (elemText) {
-        //     expect(parseFloat(elemText)).to.greaterThan(greaterThanValue);
-        //     console.log(elemText);
-        // })
+
         expect(await greenCartHomePage.getProductPrice(selectedProduct)).to.greaterThan(greaterThanValue);
     }
 });
@@ -74,10 +71,8 @@ Then("user verifies total amount of all the products", async function () {
     let allProductsCount = await greenCartHomePage.getProductCountAsNumber();
 
     console.log("This will sum all the " + allProductsCount + " products prices");
-    for (i = 0; i < allProductsCount; i++) {
-        let selectedProduct = greenCartHomePageElem.allProducts.get(i);
-        sumNum = sumNum + parseFloat(await greenCartHomePage.getProductPrice(selectedProduct));
-    }
+
+    let totalPrice = await greenCartHomePage.sumProductPrices(greenCartHomePageElem.allProducts);
     console.log("sumNum:   *****" + sumNum);
 
 });
