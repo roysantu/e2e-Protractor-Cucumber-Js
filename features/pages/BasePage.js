@@ -15,4 +15,12 @@ module.exports = {
         return await browser.driver.getTitle();
     },
 
+    getTitleAsString: async function () {
+        await browser.driver.sleep(1000);
+        return await browser.driver.getTitle().then(function(text) {
+            let title = text.toString();
+            return title;
+        });
+    },
+
 }
